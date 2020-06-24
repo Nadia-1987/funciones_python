@@ -15,6 +15,18 @@ __author__ = "Inove Coding School"
 __email__ = "alumnos@inove.com.ar"
 __version__ = "1.1"
 
+import math
+import statistics
+import random
+from random import shuffle
+
+
+import misfunciones
+from misfunciones import promedio
+from misfunciones import lista_aleatoria
+from misfunciones import ordenar
+from misfunciones import contar
+from misfunciones import buscar
 
 def ej1():
     print('Comencemos a crear lo nuestro!')
@@ -45,6 +57,7 @@ def ej2():
     Utilice la función "lista_aleatoria" para generar
     5 tiros de dados (una lista de 5 con resultados posibles
     de un dado)
+    
 
     1)
     Utilice la función "ordenar" para ordenar la lista
@@ -62,6 +75,17 @@ def ej2():
     de números.
     Imprima en pantalla dicha lista de 3 valores.
     '''
+    caras_dado = lista_aleatoria(1, 6, 5)
+    print ('las opciones del dado son:',caras_dado)
+
+    ordenar_caras_dado = ordenar(caras_dado)
+    print('la lista ordenada de las opciones es:',ordenar_caras_dado)
+
+    random.shuffle(ordenar_caras_dado)
+    print(ordenar_caras_dado)
+
+    lista_sample = random.sample(caras_dado, 3)
+    print(lista_sample)
 
 
 def ej3():
@@ -141,6 +165,32 @@ def ej4():
     2 - Utilice el método stdev() para contrastar nuestro función desvio_estandar
     '''
 
+    sumatoria = 0
+
+    lista_estadistica = lista_aleatoria(0, 100, 20)
+
+    media = promedio(lista_estadistica)
+    print('el promedio es:',media)
+
+    for numero in lista_estadistica:
+        diferencia = (numero - media) ** 2
+
+        a_b_s = abs(diferencia)
+
+        sumatoria += a_b_s
+
+    lista_len = sumatoria / len(lista_estadistica)
+
+    raiz_cuadrada = math.sqrt(lista_len)
+    print('el desvio estandar es:',raiz_cuadrada)
+
+    metodo_mean = statistics.mean(lista_estadistica)
+    print('el promedio es:',metodo_mean)
+
+    metodo_stdev = statistics.stdev(lista_estadistica)
+    print('el desvio estandar es:',metodo_stdev)
+
+
 
 def ej5():
     print("Ahora sí! buena suerte :)")
@@ -191,6 +241,40 @@ def ej5():
 
     '''
 
+    generala = lista_aleatoria(1, 6, 5)
+
+    numero_repetido = max(generala, key=generala.count)
+
+    dados_guardados = []
+
+    dados_para_tirar = []
+
+    for numero in generala:
+        if numero == numero_repetido:
+            dados_guardados.append(numero)
+        else:
+            dados_para_tirar.append(numero)
+
+    
+    
+
+    while len(dados_guardados) != 5:
+        segunda_ronda = lista_aleatoria(1, 6, len(dados_para_tirar))
+        dados_para_tirar = []
+        for numero in segunda_ronda:
+            if numero == numero_repetido:
+                dados_guardados.append(numero)
+                
+            else:
+                dados_para_tirar.append(numero)
+    print('Generala!')
+
+
+
+
+
+
+
 
 if __name__ == '__main__':
     print("Ejercicios de práctica")
@@ -198,4 +282,4 @@ if __name__ == '__main__':
     #ej2()
     #ej3()
     #ej4()
-    #ej5()
+    ej5()
